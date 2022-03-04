@@ -5,26 +5,44 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+    <div id=playerSelect>
+        <button id='rock'>Rock</button>
+        <button id='paper'>Paper</button>
+        <button id='scissors'>Scissors</button>
+    </div>
+    <div id=score>
+        <h1>Results</h1>
+        <p id='results'> Rock, paper, scissors...</p>
+        <h3>Score</h3>
+        <p id='playerScore'>0</p>
+        <p id='computerScore'>0</p>
+        <p id='winner'>Play 5 rounds...</p>
+    </div>
   <script>
-    
+    //Variables
     let playerScore = 0;
     let computerScore = 0;
-    const computerSelection = computerPlay();
 
-    //Play 5 rounds of game
-    for (let i= 0; i <= 4; i++) {
-        game();
-    }
-
-    declareWinner(playerScore, computerScore);
+    const choices = document.querySelectorAll('button');
+    choices.forEach((button) => {
+            button.addEventListener('click', () => {
+                return button.id;
+        
+            });
+        });
     
-    function game() { 
-        computerPlay();
-        const playerSelection = prompt('Enter choice: rock, paper, or scissors').toLowerCase();
-        playRound(playerSelection, computerSelection);
-        console.log(playerSelection, computerSelection);
-        scoreRound(playerSelection, computerSelection);
-        console.log(playerScore, computerScore);
+    
+    //Play 5 rounds of game
+    /*for (let i= 0; i <= 4; i++) {*/
+    game();
+    //}
+    //declareWinner();
+    
+
+    
+    function playerChoose() {
+        const playerSelection = button.id;
+            return playerSelection;
         
     }
 
@@ -41,37 +59,43 @@
         //Compare computerSelection with playerSelection
         //Player: rock, Computer: paper, Player loses
         if (playerSelection === 'rock' && computerSelection === 'paper') {
-            alert(`You lose, paper beats rock`);
+            document.getElementById('results').innerText = `You lose, paper beats rock`;
+            computerScore++;
         } //Player: paper, Computer: rock, Player wins
         else if (playerSelection === 'paper' && computerSelection === 'rock') {
-            alert(`You win, paper beats rock`);
+            document.getElementById('results').innerText = `You win, paper beats rock`;
+            playerScore++
         } //Player: scissors, Computer: rock, Player loses
         else if (playerSelection === 'scissors' && computerSelection === 'rock') {
-            alert(`You lose, rock beats scissors`);
+            document.getElementById('results').innerText = `You lose, rock beats scissors`;
+            computerScore++;
         } //Player: rock, Computer: scissors, Player wins
         else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-            alert(`You win, rock beats scissors`);
+            document.getElementById('results').innerText = `You win, rock beats scissors`;
+            playerScore++
         } //Player: paper, Computer: scissors, Player loses
         else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-            alert(`You lose, scissors beats paper`);
+            document.getElementById('results').innerText = `You lose, scissors beats paper`;
+            computerScore++;
         } //Player: scissors, Computer: paper, Player wins
         else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-            alert(`You win, scissors beats paper`);
+            document.getElementById('results').innerText = `You win, scissors beats paper`;
+            playerScore++
         }  // Player and computer choose the same thing
         else if (playerSelection === computerSelection) {
-            alert(`It's a tie, choose again...`);
+            document.getElementById('results').innerText = `It's a tie, choose again...`;
         }
         else {
-            alert("Error: Please enter only rock, paper, or scissors");
+            document.getElementById('results').innerText = `Error: Please enter only rock, paper, or scissors`;
         }
     
     }
 
-    function scoreRound(playerSelection, computerSelection) {
+    /*function scoreRound(playerSelection, computerSelection) {
         //Score winner of each round
         //Keep computer and player scores
         if (playerSelection === 'rock' && computerSelection === 'paper') {
-            return computerScore++;
+            computerScore++;
         } //Player: paper, Computer: rock, Player wins
         else if (playerSelection === 'paper' && computerSelection === 'rock') {
             return playerScore++;
@@ -93,17 +117,24 @@
         }
         
 
+    }*/
+
+    function game() { 
+        playerSelection = playerChoose();
+        computerSelection = computerPlay();
+        playRound(playerSelection, computerSelection);
+        //scoreRound();
     }
 
    function declareWinner(playerScore, computerScore) {
         if (playerScore > computerScore) {
-            alert("You win!");
+            document.getElementById('winner').innerText = "You win!";
         }
         else if (playerScore === computerScore) {
-            alert("It's a tie!")
+            document.getElementById('winner').innerText = "It's a tie!";
         }
         else {
-            alert("You lose, computer wins.")
+            document.getElementById('winner').innerText = "You lose, computer wins.";
         }
    }
 
